@@ -3,8 +3,8 @@ const generateGuidebook = require('./index')
 
 module.exports = (pluginOptions = {}) => (nextConfig = {}) => {
   const {
-    guidebookDirectory = 'pages',
-    guidebookModulePath = './guide.js',
+    guidebookDirectory = './pages',
+    guidebookModulePath = './guidebook.js',
   } = pluginOptions
 
   return Object.assign({}, nextConfig, {

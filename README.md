@@ -21,7 +21,7 @@ const withGuidebook = require('generate-guidebook/next')
 
 // These are the default options
 module.exports = withGuidebook({
-  guidebookDirectory = 'pages',
+  guidebookDirectory = './pages',
   guidebookModulePath = './guide.js',
 })
 ```
