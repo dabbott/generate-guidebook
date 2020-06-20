@@ -26,7 +26,7 @@ function formatTitle(string) {
 
 /**
  * @param {string} filePath
- * @returns {{ order?: number }}
+ * @returns {{ order?: number, title?: string, subtitle?: string }}
  */
 function readFrontMatter(filePath) {
   return matter(fs.readFileSync(filePath, 'utf8')).data
@@ -65,7 +65,7 @@ function sortFiles(directoryPath, files) {
 }
 
 /**
- * @typedef {{ file: string, title: string, slug: string, parent?: string, previous?: string, next?: string, children: TreeNode[] }} TreeNode
+ * @typedef {{ file: string, title: string, subtitle?: string, slug: string, parent?: string, previous?: string, next?: string, children: TreeNode[] }} TreeNode
  */
 
 /**
@@ -94,6 +94,7 @@ function readTree(rootPath, pathComponents) {
     return {
       file,
       title: frontmatter.title || formatTitle(basename),
+      subtitle: frontmatter.subtitle,
       slug: components.map(formatSlug).join('/'),
       parent: components.slice(0, -1).map(formatSlug).join('/'),
       children: directories.includes(basename)
@@ -156,6 +157,7 @@ function scan(directory) {
     file,
     slug: '',
     title: frontmatter.title || formatTitle(file),
+    subtitle: frontmatter.subtitle,
     children: topLevelPages,
     next: topLevelPages[0] ? topLevelPages[0].slug : undefined,
   }
