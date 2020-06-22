@@ -1,4 +1,3 @@
-const fs = require('fs')
 const path = require('path')
 const matter = require('gray-matter')
 
@@ -148,7 +147,7 @@ function connectNodes(nodes, previous, next) {
  * @param {string} directory  Directory to scan for pages
  * @returns {TreeNode}
  */
-function scan(directory, fs = fs) {
+function scan(directory, fs = require('fs')) {
   const pagesPath = path.resolve(directory)
 
   const topLevelPages = readTree(pagesPath, [], fs)
