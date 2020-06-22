@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index handles order in config.json 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "file": "b.mdx",
+      "next": "a",
+      "parent": "",
+      "previous": "",
+      "slug": "b",
+      "subtitle": undefined,
+      "title": "B",
+    },
+    Object {
+      "children": Array [],
+      "file": "a.mdx",
+      "next": undefined,
+      "parent": "",
+      "previous": "b",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
+    },
+  ],
+  "file": "index.mdx",
+  "next": "b",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
+exports[`index reads doubly nested directories 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "file": "1.mdx",
+          "next": "a/2",
+          "parent": "a",
+          "previous": "a",
+          "slug": "a/1",
+          "subtitle": undefined,
+          "title": "1",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "file": "i.mdx",
+              "next": "a/2/j",
+              "parent": "a/2",
+              "previous": "a/2",
+              "slug": "a/2/i",
+              "subtitle": undefined,
+              "title": "I",
+            },
+            Object {
+              "children": Array [],
+              "file": "j.mdx",
+              "next": "b",
+              "parent": "a/2",
+              "previous": "a/2/i",
+              "slug": "a/2/j",
+              "subtitle": undefined,
+              "title": "J",
+            },
+          ],
+          "file": "2.mdx",
+          "next": "a/2/i",
+          "parent": "a",
+          "previous": "a/1",
+          "slug": "a/2",
+          "subtitle": undefined,
+          "title": "2",
+        },
+      ],
+      "file": "a.mdx",
+      "next": "a/1",
+      "parent": "",
+      "previous": "",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "file": "1.mdx",
+          "next": undefined,
+          "parent": "b",
+          "previous": "b",
+          "slug": "b/1",
+          "subtitle": undefined,
+          "title": "1",
+        },
+      ],
+      "file": "b.mdx",
+      "next": "b/1",
+      "parent": "",
+      "previous": "a",
+      "slug": "b",
+      "subtitle": undefined,
+      "title": "B",
+    },
+  ],
+  "file": "index.mdx",
+  "next": "a",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
+exports[`index reads nested directories 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "file": "1.mdx",
+          "next": "a/2",
+          "parent": "a",
+          "previous": "a",
+          "slug": "a/1",
+          "subtitle": undefined,
+          "title": "1",
+        },
+        Object {
+          "children": Array [],
+          "file": "2.mdx",
+          "next": "b",
+          "parent": "a",
+          "previous": "a/1",
+          "slug": "a/2",
+          "subtitle": undefined,
+          "title": "2",
+        },
+      ],
+      "file": "a.mdx",
+      "next": "a/1",
+      "parent": "",
+      "previous": "",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "file": "1.mdx",
+          "next": undefined,
+          "parent": "b",
+          "previous": "b",
+          "slug": "b/1",
+          "subtitle": undefined,
+          "title": "1",
+        },
+      ],
+      "file": "b.mdx",
+      "next": "b/1",
+      "parent": "",
+      "previous": "a",
+      "slug": "b",
+      "subtitle": undefined,
+      "title": "B",
+    },
+  ],
+  "file": "index.mdx",
+  "next": "a",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
+exports[`index reads top-level directory 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "file": "a.mdx",
+      "next": "b",
+      "parent": "",
+      "previous": "",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
+    },
+    Object {
+      "children": Array [],
+      "file": "b.mdx",
+      "next": undefined,
+      "parent": "",
+      "previous": "a",
+      "slug": "b",
+      "subtitle": undefined,
+      "title": "B",
+    },
+  ],
+  "file": "index.mdx",
+  "next": "a",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;

@@ -28,7 +28,7 @@ function formatTitle(string) {
  * @param {string} filePath
  * @returns {{ order?: number, title?: string, subtitle?: string }}
  */
-function readFrontMatter(filePath) {
+function readFrontMatter(filePath, fs) {
   return matter(fs.readFileSync(filePath, 'utf8')).data
 }
 
@@ -37,7 +37,7 @@ function readFrontMatter(filePath) {
  * @param {string[]} files
  * @returns {string[]}
  */
-function sortFiles(directoryPath, files) {
+function sortFiles(directoryPath, files, fs) {
   let orderJSON = {}
 
   try {
@@ -55,7 +55,7 @@ function sortFiles(directoryPath, files) {
     .map((file) => {
       const order =
         orderJSON[path.basename(file, '.mdx')] ||
-        readFrontMatter(path.join(directoryPath, file)).order ||
+        readFrontMatter(path.join(directoryPath, file), fs).order ||
         Infinity
 
       return { file, order }
@@ -73,12 +73,13 @@ function sortFiles(directoryPath, files) {
  * @param {string[]} pathComponents
  * @returns {TreeNode[]}
  */
-function readTree(rootPath, pathComponents) {
+function readTree(rootPath, pathComponents, fs) {
   const files = fs.readdirSync(rootPath)
 
   const pages = sortFiles(
     rootPath,
-    files.filter((f) => f.endsWith('.mdx') && f !== 'index.mdx')
+    files.filter((f) => f.endsWith('.mdx') && f !== 'index.mdx'),
+    fs
   )
 
   const directories = files.filter((f) =>
@@ -89,7 +90,7 @@ function readTree(rootPath, pathComponents) {
     const basename = path.basename(file, '.mdx')
     const components = [...pathComponents, basename]
 
-    const frontmatter = readFrontMatter(path.join(rootPath, file))
+    const frontmatter = readFrontMatter(path.join(rootPath, file), fs)
 
     return {
       file,
@@ -98,7 +99,7 @@ function readTree(rootPath, pathComponents) {
       slug: components.map(formatSlug).join('/'),
       parent: components.slice(0, -1).map(formatSlug).join('/'),
       children: directories.includes(basename)
-        ? readTree(path.join(rootPath, basename), components)
+        ? readTree(path.join(rootPath, basename), components, fs)
         : [],
     }
   })
@@ -122,9 +123,13 @@ function connectNodes(nodes, previous, next) {
     }
 
     if (isLast) {
-      node.next = next
+      if (node.children.length === 0) {
+        node.next = next
+      } else {
+        node.next = node.children[0].slug
+      }
 
-      connectNodes(node.children, node.slug)
+      connectNodes(node.children, node.slug, next)
     } else {
       const nextNode = nodes[index + 1]
 
@@ -143,20 +148,20 @@ function connectNodes(nodes, previous, next) {
  * @param {string} directory  Directory to scan for pages
  * @returns {TreeNode}
  */
-function scan(directory) {
+function scan(directory, fs = fs) {
   const pagesPath = path.resolve(directory)
 
-  const topLevelPages = readTree(pagesPath, [])
+  const topLevelPages = readTree(pagesPath, [], fs)
 
   connectNodes(topLevelPages, '')
 
   const file = 'index.mdx'
-  const frontmatter = readFrontMatter(path.join(directory, file))
+  const frontmatter = readFrontMatter(path.join(directory, file), fs)
 
   return {
     file,
     slug: '',
-    title: frontmatter.title || formatTitle(file),
+    title: frontmatter.title || formatTitle('index'),
     subtitle: frontmatter.subtitle,
     children: topLevelPages,
     next: topLevelPages[0] ? topLevelPages[0].slug : undefined,

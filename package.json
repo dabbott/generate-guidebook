@@ -3,6 +3,9 @@
   "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "eval-webpack-plugin": "^1.0.0",
     "gray-matter": "^4.0.2"
@@ -11,5 +14,9 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "memfs": "^3.2.0"
   }
 }
