@@ -127,4 +127,46 @@ subtitle: bar
 
     expect(result).toMatchSnapshot()
   })
+
+  it('handles order in nested config.json', () => {
+    const fs = createFs({
+      pages: {
+        'index.mdx': '',
+        'a.mdx': '',
+        a: {
+          '1.mdx': '',
+        },
+        'hooks.mdx': '',
+        hooks: {
+          'custom_hooks.mdx': '',
+          'usecontext.mdx': '',
+          'useeffect.mdx': '',
+          'usereducer.mdx': '',
+          'useref.mdx': '',
+          'usestate.mdx': `---
+title: useState
+---
+
+# useState`,
+          'config.json': JSON.stringify({
+            order: [
+              'usestate',
+              'usereducer',
+              'useeffect',
+              'useref',
+              'usecontext',
+              'custom_hooks',
+            ],
+          }),
+        },
+        'config.json': JSON.stringify({
+          order: ['a', 'hooks'],
+        }),
+      },
+    })
+
+    const result = scan('/pages', fs)
+
+    expect(result).toMatchSnapshot()
+  })
 })

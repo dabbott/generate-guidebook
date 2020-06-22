@@ -32,6 +32,110 @@ Object {
 }
 `;
 
+exports[`index handles order in nested config.json 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "file": "1.mdx",
+          "next": "hooks",
+          "parent": "a",
+          "previous": "a",
+          "slug": "a/1",
+          "subtitle": undefined,
+          "title": "1",
+        },
+      ],
+      "file": "a.mdx",
+      "next": "a/1",
+      "parent": "",
+      "previous": "",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "file": "usestate.mdx",
+          "next": "hooks/usereducer",
+          "parent": "hooks",
+          "previous": "hooks",
+          "slug": "hooks/usestate",
+          "subtitle": undefined,
+          "title": "useState",
+        },
+        Object {
+          "children": Array [],
+          "file": "usereducer.mdx",
+          "next": "hooks/useeffect",
+          "parent": "hooks",
+          "previous": "hooks/usestate",
+          "slug": "hooks/usereducer",
+          "subtitle": undefined,
+          "title": "Usereducer",
+        },
+        Object {
+          "children": Array [],
+          "file": "useeffect.mdx",
+          "next": "hooks/useref",
+          "parent": "hooks",
+          "previous": "hooks/usereducer",
+          "slug": "hooks/useeffect",
+          "subtitle": undefined,
+          "title": "Useeffect",
+        },
+        Object {
+          "children": Array [],
+          "file": "useref.mdx",
+          "next": "hooks/usecontext",
+          "parent": "hooks",
+          "previous": "hooks/useeffect",
+          "slug": "hooks/useref",
+          "subtitle": undefined,
+          "title": "Useref",
+        },
+        Object {
+          "children": Array [],
+          "file": "usecontext.mdx",
+          "next": "hooks/custom_hooks",
+          "parent": "hooks",
+          "previous": "hooks/useref",
+          "slug": "hooks/usecontext",
+          "subtitle": undefined,
+          "title": "Usecontext",
+        },
+        Object {
+          "children": Array [],
+          "file": "custom_hooks.mdx",
+          "next": undefined,
+          "parent": "hooks",
+          "previous": "hooks/usecontext",
+          "slug": "hooks/custom_hooks",
+          "subtitle": undefined,
+          "title": "Custom Hooks",
+        },
+      ],
+      "file": "hooks.mdx",
+      "next": "hooks/usestate",
+      "parent": "",
+      "previous": "a",
+      "slug": "hooks",
+      "subtitle": undefined,
+      "title": "Hooks",
+    },
+  ],
+  "file": "index.mdx",
+  "next": "a",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
 exports[`index reads doubly nested directories 1`] = `
 Object {
   "children": Array [

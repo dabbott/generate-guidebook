@@ -51,11 +51,11 @@ function sortFiles(directoryPath, files, fs) {
   }
 
   return files
-    .map((file) => {
+    .map((file, index) => {
       const order =
         orderJSON[path.basename(file, '.mdx')] ||
         readFrontMatter(path.join(directoryPath, file), fs).order ||
-        Infinity
+        10000 + index
 
       return { file, order }
     })
