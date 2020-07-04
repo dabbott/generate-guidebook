@@ -140,7 +140,13 @@ function connectNodes(nodes, previous, next) {
     if (isFirst) {
       node.previous = previous
     } else {
-      node.previous = nodes[index - 1].slug
+      let previousNode = nodes[index - 1]
+
+      while (previousNode.children.length > 0) {
+        previousNode = previousNode.children[previousNode.children.length - 1]
+      }
+
+      node.previous = previousNode.slug
     }
 
     if (isLast) {
