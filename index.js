@@ -2,6 +2,24 @@ const path = require('path')
 const matter = require('gray-matter')
 
 /**
+ * @function
+ * @template T
+ * @param {T | null | false | undefined} input
+ * @returns {T[]}
+ */
+function compact(input) {
+  let output = []
+
+  for (let value of input) {
+    if (typeof value !== 'undefined' && value !== false && value !== null) {
+      output.push(value)
+    }
+  }
+
+  return output
+}
+
+/**
  * @param {string} string
  * @returns {string}
  */
@@ -85,23 +103,27 @@ function readTree(rootPath, pathComponents, fs) {
     fs.statSync(path.join(rootPath, f)).isDirectory()
   )
 
-  return pages.map((file) => {
-    const basename = path.basename(file, '.mdx')
-    const components = [...pathComponents, basename]
+  return compact(
+    pages.map((file) => {
+      const basename = path.basename(file, '.mdx')
+      const components = [...pathComponents, basename]
 
-    const frontmatter = readFrontMatter(path.join(rootPath, file), fs)
+      const frontmatter = readFrontMatter(path.join(rootPath, file), fs)
 
-    return {
-      file,
-      title: frontmatter.title || formatTitle(basename),
-      subtitle: frontmatter.subtitle,
-      slug: components.map(formatSlug).join('/'),
-      parent: components.slice(0, -1).map(formatSlug).join('/'),
-      children: directories.includes(basename)
-        ? readTree(path.join(rootPath, basename), components, fs)
-        : [],
-    }
-  })
+      if (frontmatter.hidden) return
+
+      return {
+        file,
+        title: frontmatter.title || formatTitle(basename),
+        subtitle: frontmatter.subtitle,
+        slug: components.map(formatSlug).join('/'),
+        parent: components.slice(0, -1).map(formatSlug).join('/'),
+        children: directories.includes(basename)
+          ? readTree(path.join(rootPath, basename), components, fs)
+          : [],
+      }
+    })
+  )
 }
 
 /**

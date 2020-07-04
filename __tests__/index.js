@@ -169,4 +169,20 @@ title: useState
 
     expect(result).toMatchSnapshot()
   })
+
+  it('handles hidden flag in frontmatter', () => {
+    const fs = createFs({
+      pages: {
+        'index.mdx': '',
+        'a.mdx': '',
+        'b.mdx': `---
+hidden: true
+---`,
+      },
+    })
+
+    const result = scan('/pages', fs)
+
+    expect(result).toMatchSnapshot()
+  })
 })

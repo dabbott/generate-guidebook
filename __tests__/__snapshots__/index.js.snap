@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`index handles hidden flag in frontmatter 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "file": "a.mdx",
+      "next": undefined,
+      "parent": "",
+      "previous": "",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
+    },
+  ],
+  "file": "index.mdx",
+  "next": "a",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
 exports[`index handles order in config.json 1`] = `
 Object {
   "children": Array [
