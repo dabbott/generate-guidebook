@@ -82,15 +82,18 @@ function sortFiles(directoryPath, files, fs) {
 }
 
 /**
- * @typedef {{ file: string, title: string, subtitle?: string, slug: string, parent?: string, previous?: string, next?: string, children: TreeNode[] }} TreeNode
+ * @typedef {{ id: number, file: string, title: string, subtitle?: string, slug: string, parent?: string, previous?: string, next?: string, children: TreeNode[] }} TreeNode
+ * @typedef {{ fs: import('fs'), id: number }} Context
  */
 
 /**
  * @param {string} rootPath
  * @param {string[]} pathComponents
+ * @param {context} Context
  * @returns {TreeNode[]}
  */
-function readTree(rootPath, pathComponents, fs) {
+function readTree(rootPath, pathComponents, context) {
+  const { fs } = context
   const files = fs.readdirSync(rootPath)
 
   const pages = sortFiles(
@@ -113,13 +116,14 @@ function readTree(rootPath, pathComponents, fs) {
       if (frontmatter.hidden) return
 
       return {
+        id: context.id++,
         file,
         title: frontmatter.title || formatTitle(basename),
         subtitle: frontmatter.subtitle,
         slug: components.map(formatSlug).join('/'),
         parent: components.slice(0, -1).map(formatSlug).join('/'),
         children: directories.includes(basename)
-          ? readTree(path.join(rootPath, basename), components, fs)
+          ? readTree(path.join(rootPath, basename), components, context)
           : [],
       }
     })
@@ -178,7 +182,8 @@ function connectNodes(nodes, previous, next) {
 function scan(directory, fs = require('fs')) {
   const pagesPath = path.resolve(directory)
 
-  const topLevelPages = readTree(pagesPath, [], fs)
+  let indexId = 0
+  const topLevelPages = readTree(pagesPath, [], { id: indexId + 1, fs })
 
   connectNodes(topLevelPages, '')
 
@@ -186,6 +191,7 @@ function scan(directory, fs = require('fs')) {
   const frontmatter = readFrontMatter(path.join(directory, file), fs)
 
   return {
+    id: indexId,
     file,
     slug: '',
     title: frontmatter.title || formatTitle('index'),

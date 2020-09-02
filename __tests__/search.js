@@ -23,8 +23,8 @@ describe('search', () => {
     const root = scan('/pages', fs)
     const index = buildIndex('/pages', root, fs)
 
-    expect(index.search('hello')).toEqual(['index.mdx'])
-    expect(index.search('fo')).toEqual(['a.mdx', 'a/1.mdx'])
+    expect(index.search('hello')).toEqual([0])
+    expect(index.search('fo')).toEqual([1, 2])
 
     expect(exportIndex(index)).toMatchSnapshot()
   })
@@ -39,6 +39,6 @@ describe('search', () => {
     const root = scan('/pages', fs)
     const index = buildIndex('/pages', root, fs)
 
-    expect(index.search('hello')).toEqual(['index.mdx'])
+    expect(index.search('hello')).toEqual([0])
   })
 })

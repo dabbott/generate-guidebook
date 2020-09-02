@@ -6,6 +6,7 @@ Object {
     Object {
       "children": Array [],
       "file": "a.mdx",
+      "id": 1,
       "next": undefined,
       "parent": "",
       "previous": "",
@@ -15,6 +16,7 @@ Object {
     },
   ],
   "file": "index.mdx",
+  "id": 0,
   "next": "a",
   "slug": "",
   "subtitle": undefined,
@@ -28,6 +30,7 @@ Object {
     Object {
       "children": Array [],
       "file": "b.mdx",
+      "id": 1,
       "next": "a",
       "parent": "",
       "previous": "",
@@ -38,6 +41,7 @@ Object {
     Object {
       "children": Array [],
       "file": "a.mdx",
+      "id": 2,
       "next": undefined,
       "parent": "",
       "previous": "b",
@@ -47,6 +51,7 @@ Object {
     },
   ],
   "file": "index.mdx",
+  "id": 0,
   "next": "b",
   "slug": "",
   "subtitle": undefined,
@@ -62,6 +67,7 @@ Object {
         Object {
           "children": Array [],
           "file": "1.mdx",
+          "id": 2,
           "next": "hooks",
           "parent": "a",
           "previous": "a",
@@ -71,6 +77,7 @@ Object {
         },
       ],
       "file": "a.mdx",
+      "id": 1,
       "next": "a/1",
       "parent": "",
       "previous": "",
@@ -83,6 +90,7 @@ Object {
         Object {
           "children": Array [],
           "file": "usestate.mdx",
+          "id": 4,
           "next": "hooks/usereducer",
           "parent": "hooks",
           "previous": "hooks",
@@ -93,6 +101,7 @@ Object {
         Object {
           "children": Array [],
           "file": "usereducer.mdx",
+          "id": 5,
           "next": "hooks/useeffect",
           "parent": "hooks",
           "previous": "hooks/usestate",
@@ -103,6 +112,7 @@ Object {
         Object {
           "children": Array [],
           "file": "useeffect.mdx",
+          "id": 6,
           "next": "hooks/useref",
           "parent": "hooks",
           "previous": "hooks/usereducer",
@@ -113,6 +123,7 @@ Object {
         Object {
           "children": Array [],
           "file": "useref.mdx",
+          "id": 7,
           "next": "hooks/usecontext",
           "parent": "hooks",
           "previous": "hooks/useeffect",
@@ -123,6 +134,7 @@ Object {
         Object {
           "children": Array [],
           "file": "usecontext.mdx",
+          "id": 8,
           "next": "hooks/custom_hooks",
           "parent": "hooks",
           "previous": "hooks/useref",
@@ -133,6 +145,7 @@ Object {
         Object {
           "children": Array [],
           "file": "custom_hooks.mdx",
+          "id": 9,
           "next": undefined,
           "parent": "hooks",
           "previous": "hooks/usecontext",
@@ -142,6 +155,7 @@ Object {
         },
       ],
       "file": "hooks.mdx",
+      "id": 3,
       "next": "hooks/usestate",
       "parent": "",
       "previous": "a/1",
@@ -151,6 +165,7 @@ Object {
     },
   ],
   "file": "index.mdx",
+  "id": 0,
   "next": "a",
   "slug": "",
   "subtitle": undefined,
@@ -166,6 +181,7 @@ Object {
         Object {
           "children": Array [],
           "file": "1.mdx",
+          "id": 2,
           "next": "a/2",
           "parent": "a",
           "previous": "a",
@@ -178,6 +194,7 @@ Object {
             Object {
               "children": Array [],
               "file": "i.mdx",
+              "id": 4,
               "next": "a/2/j",
               "parent": "a/2",
               "previous": "a/2",
@@ -188,6 +205,7 @@ Object {
             Object {
               "children": Array [],
               "file": "j.mdx",
+              "id": 5,
               "next": "b",
               "parent": "a/2",
               "previous": "a/2/i",
@@ -197,6 +215,7 @@ Object {
             },
           ],
           "file": "2.mdx",
+          "id": 3,
           "next": "a/2/i",
           "parent": "a",
           "previous": "a/1",
@@ -206,6 +225,7 @@ Object {
         },
       ],
       "file": "a.mdx",
+      "id": 1,
       "next": "a/1",
       "parent": "",
       "previous": "",
@@ -218,6 +238,7 @@ Object {
         Object {
           "children": Array [],
           "file": "1.mdx",
+          "id": 7,
           "next": undefined,
           "parent": "b",
           "previous": "b",
@@ -227,6 +248,7 @@ Object {
         },
       ],
       "file": "b.mdx",
+      "id": 6,
       "next": "b/1",
       "parent": "",
       "previous": "a/2/j",
@@ -236,6 +258,7 @@ Object {
     },
   ],
   "file": "index.mdx",
+  "id": 0,
   "next": "a",
   "slug": "",
   "subtitle": undefined,
@@ -251,6 +274,7 @@ Object {
         Object {
           "children": Array [],
           "file": "1.mdx",
+          "id": 2,
           "next": "a/2",
           "parent": "a",
           "previous": "a",
@@ -261,6 +285,7 @@ Object {
         Object {
           "children": Array [],
           "file": "2.mdx",
+          "id": 3,
           "next": "b",
           "parent": "a",
           "previous": "a/1",
@@ -270,6 +295,7 @@ Object {
         },
       ],
       "file": "a.mdx",
+      "id": 1,
       "next": "a/1",
       "parent": "",
       "previous": "",
@@ -282,6 +308,7 @@ Object {
         Object {
           "children": Array [],
           "file": "1.mdx",
+          "id": 5,
           "next": undefined,
           "parent": "b",
           "previous": "b",
@@ -291,6 +318,7 @@ Object {
         },
       ],
       "file": "b.mdx",
+      "id": 4,
       "next": "b/1",
       "parent": "",
       "previous": "a/2",
@@ -300,6 +328,7 @@ Object {
     },
   ],
   "file": "index.mdx",
+  "id": 0,
   "next": "a",
   "slug": "",
   "subtitle": undefined,
@@ -313,6 +342,7 @@ Object {
     Object {
       "children": Array [],
       "file": "a.mdx",
+      "id": 1,
       "next": "b",
       "parent": "",
       "previous": "",
@@ -323,6 +353,7 @@ Object {
     Object {
       "children": Array [],
       "file": "b.mdx",
+      "id": 2,
       "next": undefined,
       "parent": "",
       "previous": "a",
@@ -332,6 +363,7 @@ Object {
     },
   ],
   "file": "index.mdx",
+  "id": 0,
   "next": "a",
   "slug": "",
   "subtitle": undefined,

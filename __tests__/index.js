@@ -18,6 +18,7 @@ describe('index', () => {
     const result = scan('/pages', fs)
 
     expect(result).toEqual({
+      id: 0,
       file: 'index.mdx',
       slug: '',
       title: 'Index',
@@ -42,6 +43,7 @@ subtitle: bar
     const result = scan('/pages', fs)
 
     expect(result).toEqual({
+      id: 0,
       file: 'index.mdx',
       slug: '',
       title: 'foo',

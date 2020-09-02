@@ -10,7 +10,7 @@ const matter = require('gray-matter')
 /**
  * @typedef {import('flexsearch').Index} Index
  * @typedef {import('./index').TreeNode} TreeNode
- * @typedef {{ id: string, body: string }} Document
+ * @typedef {{ id: number, body: string }} Document
  */
 
 const processor = unified().use(parse).use(stringify).use(mdx)
@@ -18,11 +18,11 @@ const processor = unified().use(parse).use(stringify).use(mdx)
 /**
  * Create document.
  *
- * @param {string} route
+ * @param {number} id
  * @param {string} content
  * @returns {Document}
  */
-function createDocument(route, content) {
+function createDocument(id, content) {
   const root = processor.parse(content)
 
   let body = []
@@ -34,7 +34,7 @@ function createDocument(route, content) {
   })
 
   return {
-    id: route,
+    id,
     body: body.join(' '),
   }
 }
@@ -62,7 +62,7 @@ function buildIndex(directory, root, fs = require('fs')) {
     const filepath = path.join(resolvedDirectory, route)
     const content = matter(fs.readFileSync(filepath, 'utf8')).content
 
-    const document = createDocument(route, content)
+    const document = createDocument(node.id, content)
     acc.push(document)
 
     const basename = path.basename(node.file, path.extname(node.file))
