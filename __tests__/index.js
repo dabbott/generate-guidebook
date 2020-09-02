@@ -1,4 +1,4 @@
-const { Volume, createFsFromVolume, DirectoryJSON } = require('memfs')
+const { Volume, createFsFromVolume } = require('memfs')
 const scan = require('..')
 
 function createFs(fileTree) {
@@ -111,7 +111,7 @@ subtitle: bar
         a: {
           '1.mdx': '',
           '2.mdx': '',
-          '2': {
+          2: {
             'i.mdx': '',
             'j.mdx': '',
           },

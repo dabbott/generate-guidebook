@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search builds a search index 1`] = `"[[{\\"h\\":[\\"index.mdx\\"],\\"he\\":[\\"index.mdx\\"],\\"hel\\":[\\"index.mdx\\"],\\"hell\\":[\\"index.mdx\\"],\\"hello\\":[\\"index.mdx\\"],\\"f\\":[\\"a.mdx\\",\\"a/1.mdx\\"],\\"fo\\":[\\"a.mdx\\",\\"a/1.mdx\\"],\\"foo\\":[\\"a.mdx\\",\\"a/1.mdx\\"]},{},{},{},{},{},{},{},{}],{},[\\"@index.mdx\\",\\"@a.mdx\\",\\"@a/1.mdx\\"]]"`;
