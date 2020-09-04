@@ -113,7 +113,14 @@ function readTree(rootPath, pathComponents, context) {
 
       const frontmatter = readFrontMatter(path.join(rootPath, file), fs)
 
-      if (frontmatter.hidden) return
+      if (frontmatter.hidden === true) return
+
+      if (
+        typeof frontmatter.hidden === 'string' &&
+        process.env[frontmatter.hidden] !== undefined
+      ) {
+        return
+      }
 
       return {
         id: context.id++,

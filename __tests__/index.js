@@ -7,6 +7,8 @@ function createFs(fileTree) {
   return memfs
 }
 
+process.env.TEST_ENV_VARIABLE = true
+
 describe('index', () => {
   it('converts an index file', () => {
     const fs = createFs({
@@ -172,19 +174,69 @@ title: useState
     expect(result).toMatchSnapshot()
   })
 
-  it('handles hidden flag in frontmatter', () => {
-    const fs = createFs({
-      pages: {
-        'index.mdx': '',
-        'a.mdx': '',
-        'b.mdx': `---
+  describe('hidden', () => {
+    it('handles hidden flag in frontmatter', () => {
+      const fs = createFs({
+        pages: {
+          'index.mdx': '',
+          'a.mdx': '',
+          'b.mdx': `---
 hidden: true
 ---`,
-      },
+        },
+      })
+
+      const result = scan('/pages', fs)
+
+      expect(result).toMatchSnapshot()
     })
 
-    const result = scan('/pages', fs)
+    it('handles hidden directory in frontmatter', () => {
+      const fs = createFs({
+        pages: {
+          'index.mdx': '',
+          'a.mdx': `---
+hidden: true
+---`,
+          a: {
+            '1.mdx': '',
+          },
+        },
+      })
 
-    expect(result).toMatchSnapshot()
+      const result = scan('/pages', fs)
+
+      expect(result).toMatchSnapshot()
+    })
+
+    it('handles hidden flag in frontmatter', () => {
+      const fs = createFs({
+        pages: {
+          'index.mdx': '',
+          'a.mdx': `---
+hidden: TEST_ENV_VARIABLE
+---`,
+        },
+      })
+
+      const result = scan('/pages', fs)
+
+      expect(result).toMatchSnapshot()
+    })
+
+    it('handles hidden flag in frontmatter', () => {
+      const fs = createFs({
+        pages: {
+          'index.mdx': '',
+          'a.mdx': `---
+hidden: UNDEFINED
+---`,
+        },
+      })
+
+      const result = scan('/pages', fs)
+
+      expect(result).toMatchSnapshot()
+    })
   })
 })

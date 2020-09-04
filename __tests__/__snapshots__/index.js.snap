@@ -1,29 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index handles hidden flag in frontmatter 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [],
-      "file": "a.mdx",
-      "id": 1,
-      "next": undefined,
-      "parent": "",
-      "previous": "",
-      "slug": "a",
-      "subtitle": undefined,
-      "title": "A",
-    },
-  ],
-  "file": "index.mdx",
-  "id": 0,
-  "next": "a",
-  "slug": "",
-  "subtitle": undefined,
-  "title": "Index",
-}
-`;
-
 exports[`index handles order in config.json 1`] = `
 Object {
   "children": Array [
@@ -162,6 +138,78 @@ Object {
       "slug": "hooks",
       "subtitle": undefined,
       "title": "Hooks",
+    },
+  ],
+  "file": "index.mdx",
+  "id": 0,
+  "next": "a",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
+exports[`index hidden handles hidden directory in frontmatter 1`] = `
+Object {
+  "children": Array [],
+  "file": "index.mdx",
+  "id": 0,
+  "next": undefined,
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
+exports[`index hidden handles hidden flag in frontmatter 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "file": "a.mdx",
+      "id": 1,
+      "next": undefined,
+      "parent": "",
+      "previous": "",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
+    },
+  ],
+  "file": "index.mdx",
+  "id": 0,
+  "next": "a",
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
+exports[`index hidden handles hidden flag in frontmatter 2`] = `
+Object {
+  "children": Array [],
+  "file": "index.mdx",
+  "id": 0,
+  "next": undefined,
+  "slug": "",
+  "subtitle": undefined,
+  "title": "Index",
+}
+`;
+
+exports[`index hidden handles hidden flag in frontmatter 3`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "file": "a.mdx",
+      "id": 1,
+      "next": undefined,
+      "parent": "",
+      "previous": "",
+      "slug": "a",
+      "subtitle": undefined,
+      "title": "A",
     },
   ],
   "file": "index.mdx",
