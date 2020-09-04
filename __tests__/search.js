@@ -1,6 +1,6 @@
 const { Volume, createFsFromVolume } = require('memfs')
 const scan = require('..')
-const { buildIndex, exportIndex } = require('../search')
+const { createDocuments, buildIndex, exportIndex } = require('../search')
 
 function createFs(fileTree) {
   const volume = Volume.fromNestedJSON(fileTree, '/')
@@ -10,6 +10,7 @@ function createFs(fileTree) {
 
 describe('search', () => {
   it('builds a search index', () => {
+    const directory = '/pages'
     const fs = createFs({
       pages: {
         'index.mdx': 'hello',
@@ -20,8 +21,9 @@ describe('search', () => {
       },
     })
 
-    const root = scan('/pages', fs)
-    const index = buildIndex('/pages', root, fs)
+    const root = scan(directory, fs)
+    const documents = createDocuments(directory, root, fs)
+    const index = buildIndex(documents)
 
     expect(index.search('hello')).toEqual([0])
     expect(index.search('fo')).toEqual([1, 2])
@@ -30,14 +32,16 @@ describe('search', () => {
   })
 
   it('indexes titles', () => {
+    const directory = '/pages'
     const fs = createFs({
       pages: {
         'index.mdx': '# hello',
       },
     })
 
-    const root = scan('/pages', fs)
-    const index = buildIndex('/pages', root, fs)
+    const root = scan(directory, fs)
+    const documents = createDocuments(directory, root, fs)
+    const index = buildIndex(documents)
 
     expect(index.search('hello')).toEqual([0])
   })

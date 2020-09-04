@@ -40,36 +40,29 @@ function createDocument(id, content) {
 }
 
 /**
- * Build a search index.
- *
- * @param {string} directory  Pages directory.
+ * @param {string} directory
  * @param {TreeNode} root
+ * @returns {Document[]}
  */
-function buildIndex(directory, root, fs = require('fs')) {
-  const index = new FlexSearch()
-
+function createDocuments(directory, root, fs = require('fs')) {
   const resolvedDirectory = path.resolve(directory)
 
-  /**
-   *
-   * @param {string} directory
-   * @param {TreeNode} node
-   * @param {Document[]} acc
-   * @returns {Document[]}
-   */
-  function createDocuments(directory, node, acc) {
-    const route = path.join(directory, node.file)
+  function inner(currentDirectory, node, acc) {
+    const route = path.join(currentDirectory, node.file)
     const filepath = path.join(resolvedDirectory, route)
     const content = matter(fs.readFileSync(filepath, 'utf8')).content
 
     const document = createDocument(node.id, content)
+    document.title = node.title
     acc.push(document)
 
     const basename = path.basename(node.file, path.extname(node.file))
 
     node.children.forEach((child) => {
-      createDocuments(
-        node === root ? directory : path.join(directory, basename),
+      inner(
+        node === root
+          ? currentDirectory
+          : path.join(currentDirectory, basename),
         child,
         acc
       )
@@ -78,7 +71,18 @@ function buildIndex(directory, root, fs = require('fs')) {
     return acc
   }
 
-  const documents = createDocuments('', root, [])
+  return inner('', root, [])
+}
+
+/**
+ * Build a search index from an array of documents.
+ *
+ * @param {Document[]} documents
+ * @param {import('flexsearch').CreateOptions} options
+ * @param {TreeNode} root
+ */
+function buildIndex(documents, options) {
+  const index = new FlexSearch(options)
 
   documents.forEach((document) => {
     index.add(document.id, document.body)
@@ -96,6 +100,7 @@ function exportIndex(index) {
 }
 
 module.exports = {
+  createDocuments,
   buildIndex,
   exportIndex,
 }
