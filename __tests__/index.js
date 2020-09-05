@@ -53,6 +53,30 @@ subtitle: bar
     })
   })
 
+  it('supports variables in frontmatter', () => {
+    const fs = createFs({
+      pages: {
+        'index.mdx': `---
+title: \${VARIABLE}
+---
+
+# Content`,
+      },
+    })
+
+    const result = scan('/pages', { VARIABLE: 'Hello' }, fs)
+
+    expect(result).toEqual({
+      id: 0,
+      file: 'index.mdx',
+      slug: '',
+      title: 'Hello',
+      subtitle: undefined,
+      children: [],
+      next: undefined,
+    })
+  })
+
   it('handles order in config.json', () => {
     const fs = createFs({
       pages: {

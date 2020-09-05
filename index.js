@@ -20,6 +20,23 @@ function compact(input) {
 }
 
 /**
+ * Replace variables in the string template.
+ *
+ * @param {template} string
+ * @param {any} variables
+ * @returns {string}
+ */
+function replaceTemplate(template, variables) {
+  return template.replace(/\$\{(.*?)\}/, (match, group1) => {
+    if (typeof variables === 'object' && variables && group1 in variables) {
+      return variables[group1].toString()
+    }
+
+    return `(Undefined variable: ${group1})`
+  })
+}
+
+/**
  * @param {string} string
  * @returns {string}
  */
@@ -127,8 +144,12 @@ function readTree(rootPath, pathComponents, context) {
       return {
         id: context.id++,
         file,
-        title: frontmatter.title || formatTitle(basename),
-        subtitle: frontmatter.subtitle,
+        title: frontmatter.title
+          ? replaceTemplate(frontmatter.title, context.variables)
+          : formatTitle(basename),
+        subtitle: frontmatter.subtitle
+          ? replaceTemplate(frontmatter.subtitle, context.variables)
+          : undefined,
         slug: components.map(formatSlug).join('/'),
         parent: components.slice(0, -1).map(formatSlug).join('/'),
         children: directories.includes(basename)
@@ -208,8 +229,12 @@ function scan(directory, variables, fs = require('fs')) {
     id: indexId,
     file,
     slug: '',
-    title: frontmatter.title || formatTitle('index'),
-    subtitle: frontmatter.subtitle,
+    title: frontmatter.title
+      ? replaceTemplate(frontmatter.title, variables)
+      : formatTitle('index'),
+    subtitle: frontmatter.subtitle
+      ? replaceTemplate(frontmatter.subtitle, variables)
+      : undefined,
     children: topLevelPages,
     next: topLevelPages[0] ? topLevelPages[0].slug : undefined,
   }
