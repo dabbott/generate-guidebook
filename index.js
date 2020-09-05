@@ -117,7 +117,9 @@ function readTree(rootPath, pathComponents, context) {
 
       if (
         typeof frontmatter.hidden === 'string' &&
-        process.env[frontmatter.hidden] !== undefined
+        typeof context.variables === 'object' &&
+        context.variables &&
+        context.variables[frontmatter.hidden]
       ) {
         return
       }
@@ -184,13 +186,18 @@ function connectNodes(nodes, previous, next) {
 
 /**
  * @param {string} directory  Directory to scan for pages
+ * @param {any} variables  Variable data for usage in frontmatter
  * @returns {TreeNode}
  */
-function scan(directory, fs = require('fs')) {
+function scan(directory, variables, fs = require('fs')) {
   const pagesPath = path.resolve(directory)
 
   let indexId = 0
-  const topLevelPages = readTree(pagesPath, [], { id: indexId + 1, fs })
+  const topLevelPages = readTree(pagesPath, [], {
+    id: indexId + 1,
+    variables: variables,
+    fs,
+  })
 
   connectNodes(topLevelPages, '')
 

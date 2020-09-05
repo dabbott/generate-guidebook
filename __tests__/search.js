@@ -21,7 +21,7 @@ describe('search', () => {
       },
     })
 
-    const root = scan(directory, fs)
+    const root = scan(directory, undefined, fs)
     const documents = createDocuments(directory, root, fs)
     const index = buildIndex(documents)
 
@@ -39,7 +39,7 @@ describe('search', () => {
       },
     })
 
-    const root = scan(directory, fs)
+    const root = scan(directory, undefined, fs)
     const documents = createDocuments(directory, root, fs)
     const index = buildIndex(documents)
 

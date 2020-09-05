@@ -8,19 +8,20 @@ module.exports = (pluginOptions = {}) => (nextConfig = {}) => {
     guidebookModulePath = './guidebook.js',
     searchIndexPath = './searchIndex.js',
     searchIndexOptions = {},
+    variables,
   } = pluginOptions
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       config.plugins.push(
         new EvalWebpackPlugin(guidebookModulePath, () =>
-          scan(guidebookDirectory)
+          scan(guidebookDirectory, variables)
         )
       )
 
       config.plugins.push(
         new EvalWebpackPlugin(searchIndexPath, () => {
-          const root = scan(guidebookDirectory)
+          const root = scan(guidebookDirectory, variables)
           const documents = createDocuments(guidebookDirectory, root)
           const index = buildIndex(documents, searchIndexOptions)
           return { indexData: exportIndex(index), documents }

@@ -7,8 +7,6 @@ function createFs(fileTree) {
   return memfs
 }
 
-process.env.TEST_ENV_VARIABLE = true
-
 describe('index', () => {
   it('converts an index file', () => {
     const fs = createFs({
@@ -17,7 +15,7 @@ describe('index', () => {
       },
     })
 
-    const result = scan('/pages', fs)
+    const result = scan('/pages', undefined, fs)
 
     expect(result).toEqual({
       id: 0,
@@ -42,7 +40,7 @@ subtitle: bar
       },
     })
 
-    const result = scan('/pages', fs)
+    const result = scan('/pages', undefined, fs)
 
     expect(result).toEqual({
       id: 0,
@@ -67,7 +65,7 @@ subtitle: bar
       },
     })
 
-    const result = scan('/pages', fs)
+    const result = scan('/pages', undefined, fs)
 
     expect(result).toMatchSnapshot()
   })
@@ -81,7 +79,7 @@ subtitle: bar
       },
     })
 
-    const result = scan('/pages', fs)
+    const result = scan('/pages', undefined, fs)
 
     expect(result).toMatchSnapshot()
   })
@@ -102,7 +100,7 @@ subtitle: bar
       },
     })
 
-    const result = scan('/pages', fs)
+    const result = scan('/pages', undefined, fs)
 
     expect(result).toMatchSnapshot()
   })
@@ -127,7 +125,7 @@ subtitle: bar
       },
     })
 
-    const result = scan('/pages', fs)
+    const result = scan('/pages', undefined, fs)
 
     expect(result).toMatchSnapshot()
   })
@@ -169,7 +167,7 @@ title: useState
       },
     })
 
-    const result = scan('/pages', fs)
+    const result = scan('/pages', undefined, fs)
 
     expect(result).toMatchSnapshot()
   })
@@ -186,7 +184,7 @@ hidden: true
         },
       })
 
-      const result = scan('/pages', fs)
+      const result = scan('/pages', undefined, fs)
 
       expect(result).toMatchSnapshot()
     })
@@ -204,7 +202,7 @@ hidden: true
         },
       })
 
-      const result = scan('/pages', fs)
+      const result = scan('/pages', undefined, fs)
 
       expect(result).toMatchSnapshot()
     })
@@ -214,12 +212,12 @@ hidden: true
         pages: {
           'index.mdx': '',
           'a.mdx': `---
-hidden: TEST_ENV_VARIABLE
+hidden: TEST_VARIABLE
 ---`,
         },
       })
 
-      const result = scan('/pages', fs)
+      const result = scan('/pages', { TEST_VARIABLE: true }, fs)
 
       expect(result).toMatchSnapshot()
     })
@@ -234,7 +232,7 @@ hidden: UNDEFINED
         },
       })
 
-      const result = scan('/pages', fs)
+      const result = scan('/pages', undefined, fs)
 
       expect(result).toMatchSnapshot()
     })
