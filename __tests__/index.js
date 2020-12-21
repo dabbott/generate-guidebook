@@ -25,6 +25,7 @@ describe('index', () => {
       subtitle: undefined,
       children: [],
       next: undefined,
+      headings: [],
     })
   })
 
@@ -50,6 +51,13 @@ subtitle: bar
       subtitle: 'bar',
       children: [],
       next: undefined,
+      headings: [
+        {
+          level: 1,
+          title: 'Content',
+          url: '#content',
+        },
+      ],
     })
   })
 
@@ -74,6 +82,13 @@ title: \${VARIABLE}
       subtitle: undefined,
       children: [],
       next: undefined,
+      headings: [
+        {
+          level: 1,
+          title: 'Content',
+          url: '#content',
+        },
+      ],
     })
   })
 

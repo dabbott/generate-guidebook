@@ -246,7 +246,7 @@ function scan(directory, variables, fs = require('fs')) {
   connectNodes(topLevelPages, '')
 
   const file = 'index.mdx'
-  const { data: frontmatter } = read(path.join(directory, file), fs)
+  const { data: frontmatter, content } = read(path.join(directory, file), fs)
 
   return {
     id: indexId,
@@ -260,6 +260,7 @@ function scan(directory, variables, fs = require('fs')) {
       : undefined,
     children: topLevelPages,
     next: topLevelPages[0] ? topLevelPages[0].slug : undefined,
+    headings: toc(content),
   }
 }
 
