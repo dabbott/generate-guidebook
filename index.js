@@ -1,5 +1,6 @@
 const path = require('path')
 const matter = require('gray-matter')
+const toc = require('./src/toc')
 
 /**
  * @function
@@ -59,11 +60,15 @@ function formatTitle(string) {
 }
 
 /**
- * @param {string} filePath
- * @returns {{ order?: number, title?: string, subtitle?: string }}
+ * @typedef {{ order?: number, title?: string, subtitle?: string }} FrontMatter
  */
-function readFrontMatter(filePath, fs) {
-  return matter(fs.readFileSync(filePath, 'utf8')).data
+
+/**
+ * @param {string} filePath
+ * @returns {{ data: FrontMatter, content: string }}
+ */
+function read(filePath, fs) {
+  return matter(fs.readFileSync(filePath, 'utf8'))
 }
 
 /**
@@ -89,7 +94,7 @@ function sortFiles(directoryPath, files, fs) {
     .map((file, index) => {
       const order =
         orderJSON[path.basename(file, '.mdx')] ||
-        readFrontMatter(path.join(directoryPath, file), fs).order ||
+        read(path.join(directoryPath, file), fs).data.order ||
         10000 + index
 
       return { file, order }
@@ -99,7 +104,24 @@ function sortFiles(directoryPath, files, fs) {
 }
 
 /**
- * @typedef {{ id: number, file: string, title: string, subtitle?: string, slug: string, parent?: string, previous?: string, next?: string, children: TreeNode[] }} TreeNode
+ * @typedef {{
+ *   depth: number,
+ *   title: string,
+ *   url: string
+ * }} HeadingNode
+ *
+ * @typedef {{
+ *   id: number,
+ *   file: string,
+ *   title: string,
+ *   subtitle?: string,
+ *   slug: string,
+ *   parent?: string,
+ *   previous?: string,
+ *   next?: string,
+ *   children: TreeNode[],
+ *   headings: HeadingNode[]
+ * }} TreeNode
  * @typedef {{ fs: import('fs'), id: number }} Context
  */
 
@@ -128,7 +150,7 @@ function readTree(rootPath, pathComponents, context) {
       const basename = path.basename(file, '.mdx')
       const components = [...pathComponents, basename]
 
-      const frontmatter = readFrontMatter(path.join(rootPath, file), fs)
+      const { data: frontmatter, content } = read(path.join(rootPath, file), fs)
 
       if (frontmatter.hidden === true) return
 
@@ -155,6 +177,7 @@ function readTree(rootPath, pathComponents, context) {
         children: directories.includes(basename)
           ? readTree(path.join(rootPath, basename), components, context)
           : [],
+        headings: toc(content),
       }
     })
   )
@@ -223,7 +246,7 @@ function scan(directory, variables, fs = require('fs')) {
   connectNodes(topLevelPages, '')
 
   const file = 'index.mdx'
-  const frontmatter = readFrontMatter(path.join(directory, file), fs)
+  const { data: frontmatter } = read(path.join(directory, file), fs)
 
   return {
     id: indexId,

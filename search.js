@@ -1,19 +1,14 @@
 const path = require('path')
 const FlexSearch = require('flexsearch')
-const unified = require('unified')
-const parse = require('remark-parse')
-const mdx = require('remark-mdx')
-const stringify = require('remark-stringify')
-const visit = require('unist-util-visit')
+const parser = require('./src/parser')
 const matter = require('gray-matter')
+const flatten = require('./src/flatten')
 
 /**
  * @typedef {import('flexsearch').Index} Index
  * @typedef {import('./index').TreeNode} TreeNode
  * @typedef {{ id: number, body: string }} Document
  */
-
-const processor = unified().use(parse).use(stringify).use(mdx)
 
 /**
  * Create document.
@@ -23,19 +18,11 @@ const processor = unified().use(parse).use(stringify).use(mdx)
  * @returns {Document}
  */
 function createDocument(id, content) {
-  const root = processor.parse(content)
-
-  let body = []
-
-  visit(root, function (node) {
-    if (node.type === 'text') {
-      body.push(node.value)
-    }
-  })
+  const root = parser.parse(content)
 
   return {
     id,
-    body: body.join(' '),
+    body: flatten(root),
   }
 }
 

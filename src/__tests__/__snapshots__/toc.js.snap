@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parses headings 1`] = `
+Array [
+  Object {
+    "level": 1,
+    "title": "H1 a",
+    "url": "#h1-a",
+  },
+  Object {
+    "level": 1,
+    "title": "H1 b",
+    "url": "#h1-b",
+  },
+  Object {
+    "level": 2,
+    "title": "H2 b 1",
+    "url": "#h2-b-1",
+  },
+  Object {
+    "level": 3,
+    "title": "H3 b 1 i",
+    "url": "#h3-b-1-i",
+  },
+  Object {
+    "level": 3,
+    "title": "H3 b 1 ii",
+    "url": "#h3-b-1-ii",
+  },
+  Object {
+    "level": 2,
+    "title": "H2 c 1",
+    "url": "#h2-c-1",
+  },
+]
+`;
+
+exports[`parses headings with JSX elements 1`] = `
+Array [
+  Object {
+    "level": 1,
+    "title": "Foo Test",
+    "url": "#foo-btestb",
+  },
+]
+`;
+
+exports[`parses headings with formatting markdown 1`] = `
+Array [
+  Object {
+    "level": 1,
+    "title": "Foo strong",
+    "url": "#foo-strong",
+  },
+]
+`;

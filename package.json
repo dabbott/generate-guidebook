@@ -11,9 +11,10 @@
     "eval-webpack-plugin": "^1.0.0",
     "flexsearch": "^0.6.32",
     "gray-matter": "^4.0.2",
-    "remark-mdx": "^1.6.16",
-    "remark-parse": "^8.0.3",
-    "remark-stringify": "^8.1.1",
+    "mdast-util-toc": "^5.1.0",
+    "remark-mdx": "^1.6.22",
+    "remark-parse": "^9.0.0",
+    "remark-stringify": "^9.0.1",
     "unified": "^9.2.0",
     "unist-util-visit": "^2.0.3"
   },
