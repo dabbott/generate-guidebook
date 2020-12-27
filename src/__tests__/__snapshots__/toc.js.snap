@@ -52,5 +52,15 @@ Array [
     "title": "Foo strong",
     "url": "#foo-strong",
   },
+  Object {
+    "level": 1,
+    "title": "Bar code",
+    "url": "#bar-code",
+  },
+  Object {
+    "level": 1,
+    "title": "Baz emphasis",
+    "url": "#baz-emphasis",
+  },
 ]
 `;

@@ -28,6 +28,10 @@ test('parses headings', () => {
 
 const mdSample = `
 # Foo **strong**
+
+# Bar \`code\`
+
+# Baz *emphasis*
 `
 
 test('parses headings with formatting markdown', () => {
