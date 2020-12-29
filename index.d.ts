@@ -1,3 +1,8 @@
+export type Author = {
+  name: string
+  url?: string
+}
+
 export type TreeNode = {
   id: number
   file: string
@@ -7,6 +12,7 @@ export type TreeNode = {
   parent?: string
   previous?: string
   next?: string
+  author?: Author
   children: TreeNode[]
   headings: HeadingNode[]
 }

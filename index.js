@@ -164,6 +164,12 @@ function readTree(rootPath, pathComponents, context) {
           ? readTree(path.join(rootPath, basename), components, context)
           : [],
         headings: toc(content),
+        ...(frontmatter.author && {
+          author: {
+            name: frontmatter.author.name,
+            url: frontmatter.author.url,
+          },
+        }),
       }
     })
   )
@@ -247,6 +253,12 @@ function scan(directory, variables, fs = require('fs')) {
     children: topLevelPages,
     next: topLevelPages[0] ? topLevelPages[0].slug : undefined,
     headings: toc(content),
+    ...(frontmatter.author && {
+      author: {
+        name: frontmatter.author.name,
+        url: frontmatter.author.url,
+      },
+    }),
   }
 }
 

@@ -35,6 +35,9 @@ describe('index', () => {
         'index.mdx': `---
 title: foo
 subtitle: bar
+author:
+  name: "@dvnabbott"
+  url: "https://twitter.com/dvnabbott"
 ---
 
 # Content`,
@@ -49,6 +52,10 @@ subtitle: bar
       slug: '',
       title: 'foo',
       subtitle: 'bar',
+      author: {
+        name: '@dvnabbott',
+        url: 'https://twitter.com/dvnabbott',
+      },
       children: [],
       next: undefined,
       headings: [
