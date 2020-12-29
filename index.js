@@ -3,6 +3,10 @@ const matter = require('gray-matter')
 const toc = require('./src/toc')
 
 /**
+ * @typedef { import('.').TreeNode } TreeNode
+ */
+
+/**
  * @function
  * @template T
  * @param {T | null | false | undefined} input
@@ -104,24 +108,6 @@ function sortFiles(directoryPath, files, fs) {
 }
 
 /**
- * @typedef {{
- *   depth: number,
- *   title: string,
- *   url: string
- * }} HeadingNode
- *
- * @typedef {{
- *   id: number,
- *   file: string,
- *   title: string,
- *   subtitle?: string,
- *   slug: string,
- *   parent?: string,
- *   previous?: string,
- *   next?: string,
- *   children: TreeNode[],
- *   headings: HeadingNode[]
- * }} TreeNode
  * @typedef {{ fs: import('fs'), id: number }} Context
  */
 
