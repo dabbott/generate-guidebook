@@ -1,6 +1,6 @@
 {
   "name": "generate-guidebook",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "main": "index.js",
   "types": "index.d.ts",
   "license": "MIT",
