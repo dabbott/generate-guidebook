@@ -68,6 +68,32 @@ author:
     })
   })
 
+  it('passes through arbitrary frontmatter', () => {
+    const fs = createFs({
+      pages: {
+        'index.mdx': `---
+arbitrary: test
+---
+
+Test`,
+      },
+    })
+
+    const result = scan('/pages', undefined, fs)
+
+    expect(result).toEqual({
+      id: 0,
+      file: 'index.mdx',
+      slug: '',
+      title: 'Index',
+      subtitle: undefined,
+      children: [],
+      next: undefined,
+      headings: [],
+      arbitrary: 'test',
+    })
+  })
+
   it('supports variables in frontmatter', () => {
     const fs = createFs({
       pages: {

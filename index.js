@@ -136,20 +136,25 @@ function readTree(rootPath, pathComponents, context) {
       const basename = path.basename(file, '.mdx')
       const components = [...pathComponents, basename]
 
-      const { data: frontmatter, content } = read(path.join(rootPath, file), fs)
+      let { data: frontmatter, content } = read(path.join(rootPath, file), fs)
 
-      if (frontmatter.hidden === true) return
+      const { hidden, ...rest } = frontmatter
+
+      frontmatter = rest
+
+      if (hidden === true) return
 
       if (
-        typeof frontmatter.hidden === 'string' &&
+        typeof hidden === 'string' &&
         typeof context.variables === 'object' &&
         context.variables &&
-        context.variables[frontmatter.hidden]
+        context.variables[hidden]
       ) {
         return
       }
 
       return {
+        ...frontmatter,
         id: context.id++,
         file,
         title: frontmatter.title
@@ -238,9 +243,14 @@ function scan(directory, variables, fs = require('fs')) {
   connectNodes(topLevelPages, '')
 
   const file = 'index.mdx'
-  const { data: frontmatter, content } = read(path.join(directory, file), fs)
+  let { data: frontmatter, content } = read(path.join(directory, file), fs)
+
+  const { hidden, ...rest } = frontmatter
+
+  frontmatter = rest
 
   return {
+    ...frontmatter,
     id: indexId,
     file,
     slug: '',
