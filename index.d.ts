@@ -22,3 +22,12 @@ export type HeadingNode = {
   title: string
   url: string
 }
+
+export type Scan = (
+  directory: string,
+  variables?: Record<string, any>
+) => TreeNode
+
+declare const scan: Scan
+
+export default scan

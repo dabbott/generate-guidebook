@@ -28,7 +28,7 @@ function compact(input) {
  * Replace variables in the string template.
  *
  * @param {template} string
- * @param {any} variables
+ * @param {Record<string, any>} variables
  * @returns {string}
  */
 function replaceTemplate(template, variables) {
@@ -124,7 +124,7 @@ function sortFiles(directoryPath, files, fs) {
 /**
  * @param {string} rootPath
  * @param {string[]} pathComponents
- * @param {context} Context
+ * @param {Context} context
  * @returns {TreeNode[]}
  */
 function readTree(rootPath, pathComponents, context) {
@@ -195,11 +195,7 @@ function readTree(rootPath, pathComponents, context) {
         slug: components.map(formatSlug).join('/'),
         parent: components.slice(0, -1).map(formatSlug).join('/'),
         children: isDirectoryIndex
-          ? readTree(
-              path.join(rootPath, basename),
-              components,
-              context
-            )
+          ? readTree(path.join(rootPath, basename), components, context)
           : directories.includes(basename)
           ? // Backwards compatibility: support old pattern of file.mdx + dir without index.mdx
             readTree(path.join(rootPath, basename), components, context)
@@ -263,7 +259,7 @@ function connectNodes(nodes, previous, next) {
 
 /**
  * @param {string} directory  Directory to scan for pages
- * @param {any} variables  Variable data for usage in frontmatter
+ * @param {Record<string, any>} variables  Variable data for usage in frontmatter
  * @returns {TreeNode}
  */
 function scan(directory, variables, fs = require('fs')) {
