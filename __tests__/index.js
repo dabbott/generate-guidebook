@@ -160,13 +160,13 @@ title: \${VARIABLE}
     const fs = createFs({
       pages: {
         'index.mdx': '',
-        'a.mdx': '',
         a: {
+          'index.mdx': '',
           '1.mdx': '',
           '2.mdx': '',
         },
-        'b.mdx': '',
         b: {
+          'index.mdx': '',
           '1.mdx': '',
         },
       },
@@ -181,17 +181,17 @@ title: \${VARIABLE}
     const fs = createFs({
       pages: {
         'index.mdx': '',
-        'a.mdx': '',
         a: {
+          'index.mdx': '',
           '1.mdx': '',
-          '2.mdx': '',
           2: {
+            'index.mdx': '',
             'i.mdx': '',
             'j.mdx': '',
           },
         },
-        'b.mdx': '',
         b: {
+          'index.mdx': '',
           '1.mdx': '',
         },
       },
@@ -206,12 +206,12 @@ title: \${VARIABLE}
     const fs = createFs({
       pages: {
         'index.mdx': '',
-        'a.mdx': '',
         a: {
+          'index.mdx': '',
           '1.mdx': '',
         },
-        'hooks.mdx': '',
         hooks: {
+          'index.mdx': '',
           'custom_hooks.mdx': '',
           'usecontext.mdx': '',
           'useeffect.mdx': '',
@@ -265,10 +265,10 @@ hidden: true
       const fs = createFs({
         pages: {
           'index.mdx': '',
-          'a.mdx': `---
+          a: {
+            'index.mdx': `---
 hidden: true
 ---`,
-          a: {
             '1.mdx': '',
           },
         },

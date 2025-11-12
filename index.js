@@ -94,10 +94,20 @@ function sortFiles(directoryPath, files, fs) {
     // Pass
   }
 
+  function pageKeyFor(file) {
+    const basename = path.basename(file)
+    if (basename === 'index.mdx') {
+      // Use the directory name when sorting directory index pages
+      return path.basename(path.dirname(path.join(directoryPath, file)))
+    }
+    return path.basename(file, '.mdx')
+  }
+
   return files
     .map((file, index) => {
+      const key = pageKeyFor(file)
       const order =
-        orderJSON[path.basename(file, '.mdx')] ||
+        orderJSON[key] ||
         read(path.join(directoryPath, file), fs).data.order ||
         10000 + index
 
@@ -121,19 +131,38 @@ function readTree(rootPath, pathComponents, context) {
   const { fs } = context
   const files = fs.readdirSync(rootPath)
 
-  const pages = sortFiles(
-    rootPath,
-    files.filter((f) => f.endsWith('.mdx') && f !== 'index.mdx'),
-    fs
-  )
-
+  // Identify documentation directories: directories that contain an index.mdx
   const directories = files.filter((f) =>
     fs.statSync(path.join(rootPath, f)).isDirectory()
   )
 
+  const docDirectories = directories.filter((dir) =>
+    fs.existsSync(path.join(rootPath, dir, 'index.mdx'))
+  )
+
+  // Regular page files at this level (excluding index.mdx and any that have a corresponding doc directory)
+  const filePages = files.filter(
+    (f) =>
+      f.endsWith('.mdx') &&
+      f !== 'index.mdx' &&
+      !docDirectories.includes(path.basename(f, '.mdx'))
+  )
+
+  // Represent directory pages as 'dir/index.mdx'
+  const directoryPageFiles = docDirectories.map((dir) =>
+    path.join(dir, 'index.mdx')
+  )
+
+  const pages = sortFiles(rootPath, [...filePages, ...directoryPageFiles], fs)
+
   return compact(
     pages.map((file) => {
-      const basename = path.basename(file, '.mdx')
+      // Determine basename (slug component) and whether this page is a directory index
+      const isDirectoryIndex = path.basename(file) === 'index.mdx'
+      const basename = isDirectoryIndex
+        ? path.basename(path.dirname(path.join(rootPath, file)))
+        : path.basename(file, '.mdx')
+
       const components = [...pathComponents, basename]
 
       let { data: frontmatter, content } = read(path.join(rootPath, file), fs)
@@ -156,7 +185,7 @@ function readTree(rootPath, pathComponents, context) {
       return {
         ...frontmatter,
         id: context.id++,
-        file,
+        file: path.basename(file),
         title: frontmatter.title
           ? replaceTemplate(frontmatter.title, context.variables)
           : formatTitle(basename),
@@ -165,8 +194,15 @@ function readTree(rootPath, pathComponents, context) {
           : undefined,
         slug: components.map(formatSlug).join('/'),
         parent: components.slice(0, -1).map(formatSlug).join('/'),
-        children: directories.includes(basename)
-          ? readTree(path.join(rootPath, basename), components, context)
+        children: isDirectoryIndex
+          ? readTree(
+              path.join(rootPath, basename),
+              components,
+              context
+            )
+          : directories.includes(basename)
+          ? // Backwards compatibility: support old pattern of file.mdx + dir without index.mdx
+            readTree(path.join(rootPath, basename), components, context)
           : [],
         headings: toc(content),
         ...(frontmatter.author && {

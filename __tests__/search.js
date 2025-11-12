@@ -14,8 +14,8 @@ describe('search', () => {
     const fs = createFs({
       pages: {
         'index.mdx': 'hello',
-        'a.mdx': 'foo',
         a: {
+          'index.mdx': 'foo',
           '1.mdx': 'foo',
         },
       },

@@ -34,8 +34,19 @@ function createDocument(id, content) {
 function createDocuments(directory, root, fs = require('fs')) {
   const resolvedDirectory = path.resolve(directory)
 
-  function inner(currentDirectory, node, acc) {
-    const route = path.join(currentDirectory, node.file)
+  function nodeFileRoute(node) {
+    if (node.slug === '') {
+      return 'index.mdx'
+    }
+    if (node.file === 'index.mdx') {
+      return path.join(node.slug, 'index.mdx')
+    }
+    // Fallback for non-index pages
+    return path.join(node.parent, node.file)
+  }
+
+  function inner(node, acc) {
+    const route = nodeFileRoute(node)
     const filepath = path.join(resolvedDirectory, route)
     const content = matter(fs.readFileSync(filepath, 'utf8')).content
 
@@ -43,22 +54,14 @@ function createDocuments(directory, root, fs = require('fs')) {
     document.title = node.title
     acc.push(document)
 
-    const basename = path.basename(node.file, path.extname(node.file))
-
     node.children.forEach((child) => {
-      inner(
-        node === root
-          ? currentDirectory
-          : path.join(currentDirectory, basename),
-        child,
-        acc
-      )
+      inner(child, acc)
     })
 
     return acc
   }
 
-  return inner('', root, [])
+  return inner(root, [])
 }
 
 /**
